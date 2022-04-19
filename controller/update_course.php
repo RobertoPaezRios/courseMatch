@@ -6,7 +6,12 @@ session_start();
 
 if (!empty($_POST["update-title"]) && !empty($_POST["update-description"]) && !empty($_GET["id"])) {
   try {
-    $query = "UPDATE courses SET title = '" . $_POST["update-title"] . "', description = '" . $_POST["update-description"] .  "' 
+    $statusEdit = 0;
+    if ($_POST["update-status"] == "on") { $statusEdit = 1; }
+    $query = "UPDATE courses SET 
+    title = '" . $_POST["update-title"] . "',
+    description = '" . $_POST["update-description"] .  "',
+    status = '" . $statusEdit . "' 
     WHERE id = " . $_GET["id"] . ";";
 
     $stmt = $conn->prepare($query);

@@ -3,7 +3,7 @@
 
 <?php
 //Count items
-$query = "SELECT id, title, description FROM courses";
+$query = "SELECT id, title, description, status FROM courses";
 if (!empty($_SESSION["query"])) { $query = $_SESSION["query"]; }
 $stmt = $conn->prepare($query);
 $stmt->execute();
@@ -37,9 +37,9 @@ $rsCourses = $resultCourses->fetchAll();
         <input type="submit" name="reload-default" value="Reload by Default" class="btn btn-primary">
       </form>
     <?php }} ?>
-    <form class="d-flex" action="./controller/search_course.php" method="POST">
+    <form class="d-flex" action="./controller/search_course.php" method="POST">   
       <input class="form-control me-2" type="search" required name="search-course" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-warning" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+      <button class="btn btn-outline-warning col-md-2" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
     </form>
   </div>
 </nav>
@@ -63,6 +63,10 @@ $rsCourses = $resultCourses->fetchAll();
           </div><br>
           <div class="form-group">
             <textarea name="description" rows="6" class="form-control" placeholder="Course Description" required></textarea>
+          </div><br>
+          <div class="form-group">
+            <label for="status">Status: </label>
+            <input type="checkbox" class="form-check-input" name="status">
           </div><br>
           <input type="submit" name="save_course" class="btn btn-success col-md-12 btn-block" value="Save Course">
         </form><br>
@@ -194,6 +198,7 @@ $rsCourses = $resultCourses->fetchAll();
             <th>Id</th>
             <th>Title</th>
             <th>Description</th>
+            <th>Status<th>
             <th>Actions</th>
           </thead>
           <tbody>
@@ -203,8 +208,15 @@ $rsCourses = $resultCourses->fetchAll();
                   <td><?= $row["id"]; ?></td>
                   <td><?= $row["title"]; ?></td>
                   <td><?= $row["description"]; ?></td>
+                  <td>
+                    <?php 
+                      if ($row["status"] == 1) { echo "Active"; }
+                      else { echo "Inactive"; }
+                    ?>
+                  </td><td></td>
                   <td> 
-                    <a class="text-decoration-none" href="./views/update_view.php?id=<?= $row["id"]; ?>&title=<?= $row["title"]?>&description=<?= $row["description"];?>">
+                    
+                    <a class="text-decoration-none" href="./views/update_view.php?id=<?= $row["id"]; ?>&title=<?= $row["title"]?>&description=<?= $row["description"];?>&status=<?= $row["status"]; ?>">
                       <button class="btn btn-warning">
                         <i class="fa-solid fa-pen"></i>
                       </button>

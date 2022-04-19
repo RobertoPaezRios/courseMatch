@@ -3,7 +3,7 @@ session_start();
 
 if (!empty($_POST["search-course"])) {
   if (mb_strlen($_POST["search-course"]) < 255) {
-    $_SESSION["query"] = "SELECT id, title, description FROM courses WHERE
+    $_SESSION["query"] = "SELECT id, title, description, status FROM courses WHERE
      title LIKE '%".$_POST["search-course"]."%' or description LIKE '%".$_POST["search-course"]."%' ";
     header("Location: ../index.php?page=1");
   } else {

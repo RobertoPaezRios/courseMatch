@@ -18,6 +18,7 @@
               <?php $_SESSION["actual-id-update"] = $_GET["id"]; ?>
               <?php $_SESSION["actual-title-update"] = $_GET["title"]; ?>
               <?php $_SESSION["actual-description-update"] = $_GET["description"]; ?>
+              <?php $_SESSION["actual-status-update"] = $_GET["status"];?>
               <li class="page-item">
                 <form action="../controller/update_operation_previous.php" method="POST">
                   <input type="submit" name="previous-course" value="<" class="btn btn-outline-primary">
@@ -38,6 +39,10 @@
             </div><br>
             <div class="form-group">
               <textarea name="update-description" rows="8" class="form-control" placeholder="New Description" required><?php echo $_GET["description"]; unset($_GET["description"]); ?></textarea>
+            </div><br>
+            <div class="form-group">
+              <label for="update-status">Status: </label>
+              <input type="checkbox" <?php if ($_GET["status"] == 1) { echo "checked"; } ?> name="update-status">
             </div><br>
             <input type="submit" name="update_course" class="btn btn-warning col-md-12 btn-block" value="Save Course">
           </form><br>
